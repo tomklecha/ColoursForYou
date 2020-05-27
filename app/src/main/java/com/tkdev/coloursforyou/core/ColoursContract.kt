@@ -10,6 +10,8 @@ interface ColoursContract {
     }
 
     interface Presenter{
+        fun bind(view: View)
+        fun unbind()
         fun onViewCreated()
         fun onButtonClicked()
         fun onViewSwiped()

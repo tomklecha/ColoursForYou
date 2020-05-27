@@ -1,3 +1,3 @@
 package com.tkdev.coloursforyou.presenter
 
-class ColorsPresenter {}
+class ColoursPresenter {}

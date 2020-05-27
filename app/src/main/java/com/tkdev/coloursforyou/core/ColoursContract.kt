@@ -2,7 +2,7 @@ package com.tkdev.coloursforyou.core
 
 import com.tkdev.coloursforyou.data.model.Colour
 
-interface ColorsContract {
+interface ColoursContract {
 
     interface View{
         fun updateCurrentColours(colours: List<Colour>)

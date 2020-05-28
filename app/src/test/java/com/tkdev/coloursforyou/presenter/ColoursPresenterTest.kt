@@ -32,6 +32,9 @@ class ColoursPresenterTest{
         //GIVEN
         val message = "not this time my friend"
 
+        val list : List<Colour> = emptyList()
+        every { interactor.getSavedColours() } returns list
+
         //WHEN
         presenter.onViewCreated()
 

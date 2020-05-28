@@ -5,7 +5,7 @@ import com.tkdev.coloursforyou.data.model.Colour
 interface ColoursContract {
 
     interface View{
-        fun updateCurrentColours(colours: List<Colour>?)
+        fun updateCurrentColours(colours: List<Colour>)
         fun showError(message: String)
     }
 

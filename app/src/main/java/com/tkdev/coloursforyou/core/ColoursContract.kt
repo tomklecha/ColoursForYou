@@ -23,9 +23,9 @@ interface ColoursContract {
     }
 
     interface Repository{
-        fun saveGeneratedColours(colours: List<Colour>)
         fun getSavedColours() : List<Colour>
         fun getWords() : List<String>
+        fun saveGeneratedColours(colours: List<Colour>)
     }
 
 

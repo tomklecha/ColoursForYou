@@ -1,16 +1,15 @@
 package com.tkdev.coloursforyou.presenter
 
 import com.tkdev.coloursforyou.core.ColoursContract
-import com.tkdev.coloursforyou.core.ColoursInteractor
 
 class ColoursPresenter(
-    private val interactor: ColoursInteractor
+    private val interactor: ColoursContract.Interactor
 ) : ColoursContract.Presenter {
 
     private lateinit var view: ColoursContract.View
 
     override fun bind(view: ColoursContract.View) {
-      this.view = view
+        this.view = view
     }
 
     override fun unbind() {

@@ -1,11 +1,13 @@
 package com.tkdev.coloursforyou.data
 
+import android.content.SharedPreferences
 import com.tkdev.coloursforyou.core.ColoursContract
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
 
 class ColoursRepository(
-    private var api: ColoursApi
+    private val api: ColoursApi,
+    private val sharedPreferences: SharedPreferences
 ) : ColoursContract.Repository {
 
     override fun getSavedColours(): List<Colour> {

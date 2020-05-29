@@ -57,7 +57,7 @@ class ColoursPresenterTest{
     }
 
     @Test
-    fun `GIVEN internet connection AND success fetch data, WHEN on button pressed, THEN update view with new data`(){
+    fun `GIVEN success fetch data, WHEN on button pressed, THEN update view with new data`(){
         //GIVEN
         val list : List<Colour> = listOf(Colour("harry", -1), Colour("Potter", -1))
 
@@ -71,7 +71,7 @@ class ColoursPresenterTest{
     }
 
     @Test
-    fun `GIVEN internet connection AND failed fetch data, WHEN on button pressed, THEN update view with new data`(){
+    fun `GIVEN failed fetch data, WHEN on button pressed, THEN update view with new data`(){
         //GIVEN
         val message = "missing something?"
         val list : List<Colour> = emptyList()
@@ -86,19 +86,7 @@ class ColoursPresenterTest{
     }
 
     @Test
-    fun `GIVEN no internet connection, WHEN on button pressed, THEN show error message`(){
-        //GIVEN
-        val message = "wrong way"
-
-        //WHEN
-        presenter.onButtonClicked()
-
-        //THEN
-        view.showError(message)
-    }
-
-    @Test
-    fun `GIVEN internet connection AND success fetch data, WHEN on swipe view, THEN update view with new data`(){
+    fun `GIVEN success fetch data, WHEN on swipe view, THEN update view with new data`(){
         //GIVEN
         val list : List<Colour> = listOf(Colour("harry", -1), Colour("Potter", -1))
 
@@ -112,24 +100,12 @@ class ColoursPresenterTest{
     }
 
     @Test
-    fun `GIVEN internet connection AND failed fetch data, WHEN on swipe view, THEN update view with new data`(){
+    fun `GIVEN failed fetch data, WHEN on swipe view, THEN update view with new data`(){
         //GIVEN
         val message = "missing something?"
         val list : List<Colour> = emptyList()
 
         every { interactor.generateColours() } returns list
-
-        //WHEN
-        presenter.onViewSwiped()
-
-        //THEN
-        view.showError(message)
-    }
-
-    @Test
-    fun `GIVEN no internet connection, WHEN on swipe view, THEN show error message`(){
-        //GIVEN
-        val message = "wrong way"
 
         //WHEN
         presenter.onViewSwiped()

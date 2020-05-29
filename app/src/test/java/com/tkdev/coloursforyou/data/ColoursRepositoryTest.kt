@@ -1,5 +1,6 @@
 package com.tkdev.coloursforyou.data
 
+import android.content.SharedPreferences
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
 import io.mockk.MockKAnnotations
@@ -15,6 +16,9 @@ class ColoursRepositoryTest {
 
     @MockK
     private lateinit var api: ColoursApi
+
+    @MockK
+    private lateinit var sharedPreferences: SharedPreferences
 
     @InjectMockKs
     private lateinit var repository: ColoursRepository
@@ -35,6 +39,8 @@ class ColoursRepositoryTest {
                 Colour("daughter", -4),
                 Colour("family", -5)
             )
+
+
 
         //WHEN
         val result = repository.getSavedColours()

@@ -41,7 +41,6 @@ class ColoursRepositoryTest {
             )
 
 
-
         //WHEN
         val result = repository.getSavedColours()
 

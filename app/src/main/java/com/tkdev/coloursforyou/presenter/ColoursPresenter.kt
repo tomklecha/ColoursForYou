@@ -1,6 +1,7 @@
 package com.tkdev.coloursforyou.presenter
 
 import com.tkdev.coloursforyou.core.ColoursContract
+import com.tkdev.coloursforyou.data.model.Colour
 
 class ColoursPresenter(
     private val interactor: ColoursContract.Interactor
@@ -17,14 +18,23 @@ class ColoursPresenter(
     }
 
     override fun onViewCreated() {
-        TODO("Not yet implemented")
+       when(val result = interactor.getSavedColours()){
+           emptyList<Colour>() -> view.showError("No previously saved data")
+           else -> view.updateCurrentColours(result)
+       }
     }
 
     override fun onButtonClicked() {
-        TODO("Not yet implemented")
+        when(val result = interactor.generateColours()){
+            emptyList<Colour>() -> view.showError("Problem with fetching data")
+            else -> view.updateCurrentColours(result)
+        }
     }
 
     override fun onViewSwiped() {
-        TODO("Not yet implemented")
+        when(val result = interactor.generateColours()){
+            emptyList<Colour>() -> view.showError("Problem with fetching data")
+            else -> view.updateCurrentColours(result)
+        }
     }
 }

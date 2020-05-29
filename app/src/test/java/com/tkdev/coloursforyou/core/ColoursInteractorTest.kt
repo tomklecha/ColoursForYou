@@ -26,7 +26,7 @@ class ColoursInteractorTest{
     @Test
     fun `GIVEN list, WHEN get saved data called, THEN return list`(){
         //GIVEN
-        val expected : List<Colour> = listOf(Colour("harry", -1), Colour("Potter", -1))
+        val expected : List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
         every { repository.getSavedColours() } returns expected
 
@@ -56,11 +56,11 @@ class ColoursInteractorTest{
         //GIVEN
         val list : List<String> = listOf("mom", "dad","son", "daughter", "family")
         val expected : List<Colour> =
-            listOf(Colour("mom", -1),
-                    Colour("dad", -2),
-                    Colour("son", -3),
-                    Colour("daughter", -4),
-                    Colour("family", -5))
+            listOf(Colour("mom", "sky"),
+                    Colour("dad", "is"),
+                    Colour("son", "the"),
+                    Colour("daughter", "only"),
+                    Colour("family", "limit"))
 
         every { repository.getWords() } returns list
 

@@ -32,14 +32,11 @@ class ColoursRepositoryTest {
     fun `GIVEN data, WHEN get saved data, THEN return colours list `() {
         //GIVEN
         val expected: List<Colour> =
-            listOf(
-                Colour("mom", -1),
-                Colour("dad", -2),
-                Colour("son", -3),
-                Colour("daughter", -4),
-                Colour("family", -5)
-            )
-
+                listOf(Colour("mom", "sky"),
+                    Colour("dad", "is"),
+                    Colour("son", "the"),
+                    Colour("daughter", "only"),
+                    Colour("family", "limit"))
 
         //WHEN
         val result = repository.getSavedColours()

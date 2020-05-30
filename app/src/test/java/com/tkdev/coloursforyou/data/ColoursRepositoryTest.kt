@@ -31,7 +31,6 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN data, WHEN get saved data, THEN return colours list `() {
         //GIVEN
-
         val string =
             "[{\"word\":\"emotion\",\"colour\":\"sky\"},{\"word\":\"mischarge\",\"colour\":\"limit\"}]"
         val expected: List<Colour> =

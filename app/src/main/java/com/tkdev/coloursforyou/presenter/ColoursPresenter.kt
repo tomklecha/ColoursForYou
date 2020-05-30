@@ -18,6 +18,7 @@ class ColoursPresenter(
     }
 
     override fun onViewCreated() {
+
        when(val result = interactor.getSavedColours()){
            emptyList<Colour>() -> view.showError("No previously saved data")
            else -> view.updateCurrentColours(result)
@@ -25,10 +26,11 @@ class ColoursPresenter(
     }
 
     override fun onButtonClicked() {
-        when(val result = interactor.generateColours()){
+        Thread(Runnable { when(val result = interactor.generateColours()){
             emptyList<Colour>() -> view.showError("Problem with fetching data")
             else -> view.updateCurrentColours(result)
-        }
+        } }).start()
+
     }
 
     override fun onViewSwiped() {

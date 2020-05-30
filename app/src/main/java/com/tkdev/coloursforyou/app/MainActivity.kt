@@ -3,10 +3,12 @@ package com.tkdev.coloursforyou.app
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.coloursforyou.R
 import com.tkdev.coloursforyou.core.ColoursContract
 import com.tkdev.coloursforyou.data.model.Colour
-import com.tkdev.coloursforyou.presenter.ColoursPresenter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ColoursContract.View {
 
@@ -22,10 +24,15 @@ class MainActivity : AppCompatActivity(), ColoursContract.View {
         super.onStart()
         presenter.bind(this)
         presenter.onViewCreated()
+
+        coloursRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        }
+
     }
 
     override fun updateCurrentColours(colours: List<Colour>) {
-        TODO("Not yet implemented")
+        coloursRecyclerView.adapter = ColoursAdapter(colours)
     }
 
     override fun showError(message: String) {

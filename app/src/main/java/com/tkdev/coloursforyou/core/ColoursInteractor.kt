@@ -15,13 +15,13 @@ class ColoursInteractor(
         }
     }
 
-    override fun generateColours(): List<Colour> {
+    override suspend fun generateColours(): List<Colour> {
         val result = repository.getWords()
         if (result == emptyList<String>()) {
             return emptyList()
         }
         val colourList = createColourList(result)
-        Thread(Runnable { repository.saveGeneratedColours(colourList) }).start()
+        repository.saveGeneratedColours(colourList)
         return colourList
     }
 

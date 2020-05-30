@@ -32,7 +32,7 @@ class ColoursRepository(
         }
     }
 
-    override fun getWords(): List<String> {
+    override suspend fun getWords(): List<String> {
         return try {
             api.fetchData().toList()
         } catch (e: Exception) {

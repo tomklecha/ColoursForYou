@@ -1,15 +1,18 @@
 package com.tkdev.coloursforyou.data
 
 import android.content.SharedPreferences
+import com.tkdev.coloursforyou.core.CoroutineDispatcherFactoryUnconfined
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 
 
 class ColoursRepositoryTest {
@@ -31,7 +34,8 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN data, WHEN get saved data, THEN return colours list `() {
         //GIVEN
-        val string ="[{\"word\":\"emotion\",\"colour\":\"sky\"},{\"word\":\"mischarge\",\"colour\":\"limit\"}]"
+        val string =
+            "[{\"word\":\"emotion\",\"colour\":\"sky\"},{\"word\":\"mischarge\",\"colour\":\"limit\"}]"
         val expected: List<Colour> =
             arrayListOf(
                 Colour("emotion", "sky"),
@@ -41,7 +45,7 @@ class ColoursRepositoryTest {
         every { sharedPreferences.getString("list", null) } returns string
 
         //WHEN
-        val result = repository.getSavedColours()
+        val result =   repository.getSavedColours()
 
         //THEN
         assertEquals(expected, result)
@@ -67,10 +71,10 @@ class ColoursRepositoryTest {
         //GIVEN
         val list: List<String> = listOf("mom", "dad", "son", "daughter", "family")
 
-        every { api.fetchData() } returns list
+        coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = repository.getWords()
+        val result = runBlocking { repository.getWords()}
 
         //THEN
         assertEquals(list, result)
@@ -81,10 +85,10 @@ class ColoursRepositoryTest {
         //GIVEN
         val list: List<String> = emptyList()
 
-        every { api.fetchData() } returns list
+        coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = repository.getWords()
+        val result = runBlocking { repository.getWords()}
 
         //THEN
         assertEquals(list, result)

@@ -45,7 +45,7 @@ class ColoursPresenterTest{
     @Test
     fun `GIVEN saved data, WHEN on view created, THEN update view with data`(){
         //GIVEN
-        val list : List<Colour> = listOf(Colour("harry", -1), Colour("Potter", -1))
+        val list : List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
         every { interactor.getSavedColours() } returns list
 
@@ -59,7 +59,7 @@ class ColoursPresenterTest{
     @Test
     fun `GIVEN success fetch data, WHEN on button pressed, THEN update view with new data`(){
         //GIVEN
-        val list : List<Colour> = listOf(Colour("harry", -1), Colour("Potter", -1))
+        val list : List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
         every { interactor.generateColours() } returns list
 
@@ -88,7 +88,7 @@ class ColoursPresenterTest{
     @Test
     fun `GIVEN success fetch data, WHEN on swipe view, THEN update view with new data`(){
         //GIVEN
-        val list : List<Colour> = listOf(Colour("harry", -1), Colour("Potter", -1))
+        val list : List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
         every { interactor.generateColours() } returns list
 

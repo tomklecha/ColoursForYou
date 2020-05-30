@@ -4,12 +4,14 @@ import android.content.SharedPreferences
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 
 
 class ColoursRepositoryTest {
@@ -71,10 +73,10 @@ class ColoursRepositoryTest {
         //GIVEN
         val list: List<String> = listOf("mom", "dad", "son", "daughter", "family")
 
-        every { api.fetchData() } returns list
+        coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = repository.getWords()
+        val result = runBlocking { repository.getWords() }
 
         //THEN
         assertEquals(list, result)
@@ -85,10 +87,10 @@ class ColoursRepositoryTest {
         //GIVEN
         val list: List<String> = emptyList()
 
-        every { api.fetchData() } returns list
+        coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = repository.getWords()
+        val result = runBlocking { repository.getWords() }
 
         //THEN
         assertEquals(list, result)

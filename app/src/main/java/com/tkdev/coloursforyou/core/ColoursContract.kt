@@ -4,12 +4,12 @@ import com.tkdev.coloursforyou.data.model.Colour
 
 interface ColoursContract {
 
-    interface View{
+    interface View {
         fun updateCurrentColours(colours: List<Colour>)
         fun showError(message: String)
     }
 
-    interface Presenter{
+    interface Presenter {
         fun bind(view: View)
         fun unbind()
         fun onViewCreated()
@@ -17,14 +17,14 @@ interface ColoursContract {
         fun onViewSwiped()
     }
 
-    interface Interactor{
-        fun getSavedColours() : List<Colour>
-        fun generateColours() : List<Colour>
+    interface Interactor {
+        fun getSavedColours(): List<Colour>
+        suspend fun generateColours(): List<Colour>
     }
 
-    interface Repository{
-        fun getSavedColours() : List<Colour>
-        fun getWords() : List<String>
+    interface Repository {
+        fun getSavedColours(): List<Colour>
+        suspend fun getWords(): List<String>
         fun saveGeneratedColours(colours: List<Colour>)
     }
 

@@ -3,10 +3,12 @@ package com.tkdev.coloursforyou.data.model
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.await
+
 import retrofit2.converter.gson.GsonConverterFactory
 
 interface ColoursApi {
-    fun fetchData(): List<String>
+    suspend fun fetchData(): List<String>
 }
 
 class ColoursApiDefault() : ColoursApi {
@@ -27,9 +29,8 @@ class ColoursApiDefault() : ColoursApi {
         service = retrofit.create(ColourService::class.java)
     }
 
-    override fun fetchData(): List<String> {
-        val call = service.getWordsList(5)
-        return call.execute().body()!!
+    override suspend fun fetchData(): List<String> {
+        return service.getWordsList(5).await()
     }
 
 }

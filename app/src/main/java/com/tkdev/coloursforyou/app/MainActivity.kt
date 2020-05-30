@@ -2,7 +2,9 @@ package com.tkdev.coloursforyou.app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.widget.Toast
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.coloursforyou.R
@@ -31,6 +33,16 @@ class MainActivity : AppCompatActivity(), ColoursContract.View {
 
         button.setOnClickListener { presenter.onButtonClicked() }
 
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return when (MotionEventCompat.getActionMasked(event)) {
+            MotionEvent.ACTION_DOWN -> {
+                presenter.onViewSwiped()
+                true
+            }
+            else -> super.onTouchEvent(event)
+        }
     }
 
     override fun updateCurrentColours(colours: List<Colour>) {

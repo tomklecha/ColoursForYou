@@ -1,7 +1,6 @@
 package com.tkdev.coloursforyou.data
 
 import android.content.SharedPreferences
-import com.tkdev.coloursforyou.core.CoroutineDispatcherFactoryUnconfined
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
 import io.mockk.MockKAnnotations
@@ -45,7 +44,7 @@ class ColoursRepositoryTest {
         every { sharedPreferences.getString("list", null) } returns string
 
         //WHEN
-        val result =   repository.getSavedColours()
+        val result = repository.getSavedColours()
 
         //THEN
         assertEquals(expected, result)
@@ -74,7 +73,7 @@ class ColoursRepositoryTest {
         coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = runBlocking { repository.getWords()}
+        val result = runBlocking { repository.getWords() }
 
         //THEN
         assertEquals(list, result)
@@ -88,7 +87,7 @@ class ColoursRepositoryTest {
         coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = runBlocking { repository.getWords()}
+        val result = runBlocking { repository.getWords() }
 
         //THEN
         assertEquals(list, result)

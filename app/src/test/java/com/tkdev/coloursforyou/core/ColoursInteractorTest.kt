@@ -69,7 +69,7 @@ class ColoursInteractorTest {
         coEvery { repository.getWords() } returns list
 
         //WHEN
-        val result = runBlocking { interactor.generateColours()}
+        val result = runBlocking { interactor.generateColours() }
 
         //THEN
         assertEquals(expected, result)
@@ -88,7 +88,7 @@ class ColoursInteractorTest {
         coEvery { repository.getWords() } returns list
 
         //WHEN
-        val result = runBlocking { interactor.generateColours()}
+        val result = runBlocking { interactor.generateColours() }
 
         //THEN
         assertEquals(expected, result)

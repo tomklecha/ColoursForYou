@@ -1,4 +1,4 @@
 package com.tkdev.coloursforyou.data.model
 
-class Colour(val word: String, val colour: String) {
+data class Colour(val word: String, val colour: String) {
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.coloursforyou.R
 import com.tkdev.coloursforyou.data.model.Colour
 
-class ColoursAdapter(private val list: List<Colour>): RecyclerView.Adapter<ColoursViewHolder>() {
+class ColoursAdapter(private val list: List<Colour>) : RecyclerView.Adapter<ColoursViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColoursViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ColoursViewHolder(inflater.inflate(R.layout.list_colour, null))

@@ -4,12 +4,14 @@ import android.content.SharedPreferences
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
 import io.mockk.MockKAnnotations
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert.*
 
 
 class ColoursRepositoryTest {
@@ -31,14 +33,16 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN data, WHEN get saved data, THEN return colours list `() {
         //GIVEN
-        val string ="[{\"word\":\"emotion\",\"colour\":-1},{\"word\":\"mischarge\",\"colour\":-2}]"
+        val string =
+            "[{\"word\":\"emotion\",\"colour\":\"sky\"},{\"word\":\"mischarge\",\"colour\":\"limit\"}]"
         val expected: List<Colour> =
             listOf(
-                Colour("emotion", -1),
-                Colour("mischarge", -2)
+                Colour("emotion", "sky"),
+                Colour("mischarge", "limit")
             )
 
-        every { sharedPreferences.getString("list", "") } returns string
+        every { sharedPreferences.getString("list", null) } returns string
+
 
         //WHEN
         val result = repository.getSavedColours()
@@ -50,10 +54,12 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN empty data, WHEN get saved data, THEN return empty list `() {
         //GIVEN
-        val savedData = ""
+
+        val savedData = null
         val expected: List<Colour> = emptyList()
 
-        every { sharedPreferences.getString("list", "") } returns savedData
+        every { sharedPreferences.getString("list", null) } returns savedData
+
 
         //WHEN
         val result = repository.getSavedColours()
@@ -67,10 +73,10 @@ class ColoursRepositoryTest {
         //GIVEN
         val list: List<String> = listOf("mom", "dad", "son", "daughter", "family")
 
-        every { api.fetchData() } returns list
+        coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = repository.getWords()
+        val result = runBlocking { repository.getWords() }
 
         //THEN
         assertEquals(list, result)
@@ -81,10 +87,10 @@ class ColoursRepositoryTest {
         //GIVEN
         val list: List<String> = emptyList()
 
-        every { api.fetchData() } returns list
+        coEvery { api.fetchData() } returns list
 
         //WHEN
-        val result = repository.getWords()
+        val result = runBlocking { repository.getWords() }
 
         //THEN
         assertEquals(list, result)

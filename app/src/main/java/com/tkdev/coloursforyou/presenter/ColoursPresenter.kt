@@ -1,30 +1,59 @@
 package com.tkdev.coloursforyou.presenter
 
 import com.tkdev.coloursforyou.core.ColoursContract
+import com.tkdev.coloursforyou.core.CoroutineDispatcherFactory
+import com.tkdev.coloursforyou.data.model.Colour
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class ColoursPresenter(
-    private val interactor: ColoursContract.Interactor
-) : ColoursContract.Presenter {
+    private val interactor: ColoursContract.Interactor,
+    private val dispatcher: CoroutineDispatcherFactory
+) : ColoursContract.Presenter, CoroutineScope {
 
     private lateinit var view: ColoursContract.View
+
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = dispatcher.UI + job
 
     override fun bind(view: ColoursContract.View) {
         this.view = view
     }
 
     override fun unbind() {
-        TODO("Not yet implemented")
+        job.cancel()
     }
 
     override fun onViewCreated() {
-        TODO("Not yet implemented")
+        when (val savedData = interactor.getSavedColours()) {
+            emptyList<Colour>() -> showError("No previously saved data")
+            else -> updateColors(savedData)
+        }
     }
 
     override fun onButtonClicked() {
-        TODO("Not yet implemented")
+        generateColourList()
     }
 
     override fun onViewSwiped() {
-        TODO("Not yet implemented")
+        generateColourList()
+    }
+
+    private fun CoroutineScope.generateColourList() = launch(dispatcher.IO) {
+        when (val result = interactor.generateColours()) {
+            emptyList<Colour>() -> showError("Problem with fetching data")
+            else -> updateColors(result)
+        }
+    }
+
+    private fun CoroutineScope.updateColors(colours: List<Colour>) = launch(dispatcher.UI) {
+        view.updateCurrentColours(colours)
+    }
+
+    private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
+        view.showError(message)
     }
 }

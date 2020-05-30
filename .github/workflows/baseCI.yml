@@ -23,13 +23,13 @@ jobs:
       - uses: actions/checkout@v2
 
       # Test
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+        
       - name: Run unit test in debug build
         id: testDebug
         run: ./gradlew testDebugUnitTest
         
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       # Assemble
       - name: Run assemble to debug
         run: ./gradlew assembleDebug

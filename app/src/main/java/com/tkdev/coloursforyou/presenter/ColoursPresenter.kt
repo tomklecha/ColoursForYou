@@ -8,6 +8,8 @@ class ColoursPresenter(
 ) : ColoursContract.Presenter {
 
     private lateinit var view: ColoursContract.View
+    private var result : List<Colour> = emptyList()
+
 
     override fun bind(view: ColoursContract.View) {
         this.view = view
@@ -18,19 +20,20 @@ class ColoursPresenter(
     }
 
     override fun onViewCreated() {
-
-       when(val result = interactor.getSavedColours()){
+       when(val savedData = interactor.getSavedColours()){
            emptyList<Colour>() -> view.showError("No previously saved data")
-           else -> view.updateCurrentColours(result)
+           else -> view.updateCurrentColours(savedData)
        }
+
     }
 
     override fun onButtonClicked() {
-        Thread(Runnable { when(val result = interactor.generateColours()){
+        Thread(Runnable { result = interactor.generateColours()}).start()
+
+        when(result){
             emptyList<Colour>() -> view.showError("Problem with fetching data")
             else -> view.updateCurrentColours(result)
-        } }).start()
-
+        }
     }
 
     override fun onViewSwiped() {

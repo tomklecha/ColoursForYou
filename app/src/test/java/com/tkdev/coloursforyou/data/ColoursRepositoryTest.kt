@@ -33,12 +33,12 @@ class ColoursRepositoryTest {
         //GIVEN
         val string ="[{\"word\":\"emotion\",\"colour\":\"sky\"},{\"word\":\"mischarge\",\"colour\":\"limit\"}]"
         val expected: List<Colour> =
-            listOf(
+            arrayListOf(
                 Colour("emotion", "sky"),
                 Colour("mischarge", "limit")
             )
 
-        every { sharedPreferences.getString("list", "") } returns string
+        every { sharedPreferences.getString("list", null) } returns string
 
         //WHEN
         val result = repository.getSavedColours()
@@ -50,10 +50,10 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN empty data, WHEN get saved data, THEN return empty list `() {
         //GIVEN
-        val savedData = ""
+        val savedData = null
         val expected: List<Colour> = emptyList()
 
-        every { sharedPreferences.getString("list", "") } returns savedData
+        every { sharedPreferences.getString("list", null) } returns savedData
 
         //WHEN
         val result = repository.getSavedColours()

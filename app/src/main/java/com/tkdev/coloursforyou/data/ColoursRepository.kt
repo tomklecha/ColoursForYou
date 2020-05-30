@@ -6,6 +6,9 @@ import com.google.gson.reflect.TypeToken
 import com.tkdev.coloursforyou.core.ColoursContract
 import com.tkdev.coloursforyou.data.model.Colour
 import com.tkdev.coloursforyou.data.model.ColoursApi
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ColoursRepository(
     private val api: ColoursApi,
@@ -15,24 +18,24 @@ class ColoursRepository(
     override fun getSavedColours(): List<Colour> {
         var colourList: List<Colour> = emptyList()
         with(sharedPreferences) {
-            val gson = Gson()
-            val json = sharedPreferences.getString("list", "")
-            val type = object : TypeToken<List<Colour>>() {}.type
-            if (json != null){
-            colourList = gson.fromJson(json, type)
+            val json = sharedPreferences.getString("list", null)
+            if (json != null) {
+                val gson = Gson()
+                val type = object : TypeToken<List<Colour>>() {}.type
+                colourList = gson.fromJson(json, type)
             }
         }
 
         return when (colourList.isEmpty()) {
             true -> emptyList()
-            false -> colourList.toList()
+            false -> colourList
         }
     }
 
     override fun getWords(): List<String> {
         return try {
             api.fetchData().toList()
-        } catch (e: ExceptionInInitializerError) {
+        } catch (e: Exception) {
             emptyList()
         }
     }

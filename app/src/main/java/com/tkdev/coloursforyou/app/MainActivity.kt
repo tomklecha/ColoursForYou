@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity(), ColoursContract.View {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
 
+        button.setOnClickListener { presenter.onButtonClicked() }
+
     }
 
     override fun updateCurrentColours(colours: List<Colour>) {

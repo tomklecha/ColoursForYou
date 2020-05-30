@@ -2,7 +2,6 @@ package com.tkdev.coloursforyou.data.model
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -29,7 +28,8 @@ class ColoursApiDefault() : ColoursApi {
     }
 
     override fun fetchData(): List<String> {
-        return service.getWordsList(5)
+        val call = service.getWordsList(5)
+        return call.execute().body()!!
     }
 
 }

@@ -31,15 +31,14 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN data, WHEN get saved data, THEN return colours list `() {
         //GIVEN
+        val string ="[{\"word\":\"emotion\",\"colour\":-1},{\"word\":\"mischarge\",\"colour\":-2}]"
         val expected: List<Colour> =
             listOf(
-                Colour("mom", -1),
-                Colour("dad", -2),
-                Colour("son", -3),
-                Colour("daughter", -4),
-                Colour("family", -5)
+                Colour("emotion", -1),
+                Colour("mischarge", -2)
             )
 
+        every { sharedPreferences.getString("list", "") } returns string
 
         //WHEN
         val result = repository.getSavedColours()
@@ -51,7 +50,10 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN empty data, WHEN get saved data, THEN return empty list `() {
         //GIVEN
+        val savedData = ""
         val expected: List<Colour> = emptyList()
+
+        every { sharedPreferences.getString("list", "") } returns savedData
 
         //WHEN
         val result = repository.getSavedColours()

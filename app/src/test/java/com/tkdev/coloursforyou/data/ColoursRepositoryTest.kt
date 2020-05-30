@@ -36,7 +36,7 @@ class ColoursRepositoryTest {
         val string =
             "[{\"word\":\"emotion\",\"colour\":\"sky\"},{\"word\":\"mischarge\",\"colour\":\"limit\"}]"
         val expected: List<Colour> =
-            arrayListOf(
+            listOf(
                 Colour("emotion", "sky"),
                 Colour("mischarge", "limit")
             )

@@ -1,5 +1,6 @@
 package com.tkdev.coloursforyou.core
 
+import com.tkdev.coloursforyou.data.ColoursHexGenerator
 import com.tkdev.coloursforyou.data.model.Colour
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -16,6 +17,9 @@ class ColoursInteractorTest {
 
     @MockK
     private lateinit var repository: ColoursContract.Repository
+
+    @MockK
+    private lateinit var hexGenerator: ColoursHexGenerator
 
     @InjectMockKs
     private lateinit var interactor: ColoursInteractor
@@ -67,6 +71,7 @@ class ColoursInteractorTest {
             )
 
         coEvery { repository.getWords() } returns list
+        every { hexGenerator.generateHexColour(list) } returns expected
 
         //WHEN
         val result = runBlocking { interactor.generateColours() }

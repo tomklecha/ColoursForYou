@@ -62,6 +62,7 @@ class ColoursPresenterTest {
     @Test
     fun `GIVEN saved data, WHEN on view created, THEN update view with data`() {
         //GIVEN
+        val message = "Successfully loaded saved data"
         val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
         every { interactor.getSavedColours() } returns list
@@ -73,12 +74,14 @@ class ColoursPresenterTest {
         verify {
             view.updateCurrentColours(list)
             view.updateListSizeView(list.size)
+            view.showSuccess(message)
         }
     }
 
     @Test
     fun `GIVEN success fetch data, WHEN on button pressed, THEN update view with new data`() {
         //GIVEN
+        val message = "Successfully generated new colour list"
         val coloursQuantity = 2
         val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
@@ -91,11 +94,12 @@ class ColoursPresenterTest {
         verify {
             view.updateCurrentColours(list)
             view.updateListSizeView(list.size)
+            view.showSuccess(message)
         }
     }
 
     @Test
-    fun `GIVEN failed fetch data, WHEN on button pressed, THEN update view with new data`() {
+    fun `GIVEN failed fetch data, WHEN on button pressed, THEN show error message`() {
         //GIVEN
         val coloursQuantity = 5
         val message = "Problem with fetching data"
@@ -115,6 +119,7 @@ class ColoursPresenterTest {
     @Test
     fun `GIVEN success fetch data, WHEN on swipe view, THEN update view with new data`() {
         //GIVEN
+        val message = "Successfully generated new colour list"
         val coloursQuantity = 2
         val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
@@ -128,11 +133,12 @@ class ColoursPresenterTest {
             view.updateCurrentColours(list)
             view.updateListSizeView(list.size)
             view.setSwipeRefresh(false)
+            view.showSuccess(message)
         }
     }
 
     @Test
-    fun `GIVEN failed fetch data, WHEN on swipe view, THEN update view with new data`() {
+    fun `GIVEN failed fetch data, WHEN on swipe view, THEN show error message`() {
         //GIVEN
         val coloursQuantity = 5
         val message = "Problem with fetching data"
@@ -153,6 +159,7 @@ class ColoursPresenterTest {
     @Test
     fun `GIVEN success fetch data, WHEN on dialog positive update, THEN update view with new data`() {
         //GIVEN
+        val message = "Successfully generated new colour list"
         val coloursQuantity = 2
         val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
@@ -165,11 +172,12 @@ class ColoursPresenterTest {
         verify {
             view.updateCurrentColours(list)
             view.updateListSizeView(list.size)
+            view.showSuccess(message)
         }
     }
 
     @Test
-    fun `GIVEN failed fetch data, WHEN on dialog positive update, THEN update view with new data`() {
+    fun `GIVEN failed fetch data, WHEN on dialog positive update, THEN show error message`() {
         //GIVEN
         val coloursQuantity = 5
         val message = "Problem with fetching data"

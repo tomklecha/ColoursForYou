@@ -36,6 +36,7 @@ class ColoursPresenter(
             else -> {
                 updateColors(savedData)
                 updateColoursListSize(savedData.size)
+                showSuccess("Successfully loaded saved data")
             }
         }
     }
@@ -65,6 +66,7 @@ class ColoursPresenter(
                     updateColors(result)
                     updateColoursListSize(result.size)
                     updateSwipeRefresh(false)
+                    showSuccess("Successfully generated new colour list")
                 }
             }
         }
@@ -76,6 +78,10 @@ class ColoursPresenter(
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
         view.showError(message)
+    }
+
+    private fun CoroutineScope.showSuccess(message: String) = launch(dispatcher.UI) {
+        view.showSuccess(message)
     }
 
     private fun CoroutineScope.updateColoursListSize(listSize: Int) = launch(dispatcher.UI) {

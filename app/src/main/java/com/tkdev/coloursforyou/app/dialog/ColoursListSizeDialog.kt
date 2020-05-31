@@ -36,7 +36,7 @@ class ColoursListSizeDialog : DialogFragment() {
             val inflater = requireActivity().layoutInflater
             val dialogLayout = inflater.inflate(R.layout.dialog_list_size, null)
             val editText = dialogLayout.editText
-            editText.filters = arrayOf(ColoursAmountListFilter(0, 99))
+            editText.filters = arrayOf(ColoursAmountListFilter(1, 99))
 
             builder?.setView(dialogLayout)
 
@@ -46,7 +46,7 @@ class ColoursListSizeDialog : DialogFragment() {
             }
             builder?.setNegativeButton("cancel")
             { _, _ ->
-                listener.onNegativeClick("change cancelled")
+                listener.onNegativeClick("Update of colour list cancelled")
             }
 
             builder?.create()

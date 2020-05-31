@@ -60,6 +60,7 @@ class ColoursInteractorTest {
     @Test
     fun `GIVEN words list , WHEN generate colours, THEN return list AND save list`() {
         //GIVEN
+        val coloursQuantity = 5
         val list: List<String> = listOf("mom", "dad", "son", "daughter", "family")
         val expected: List<Colour> =
             listOf(
@@ -70,11 +71,11 @@ class ColoursInteractorTest {
                 Colour("family", "limit")
             )
 
-        coEvery { repository.getWords() } returns list
+        coEvery { repository.getWords(coloursQuantity) } returns list
         every { hexGenerator.generateHexColour(list) } returns expected
 
         //WHEN
-        val result = runBlocking { interactor.generateColours() }
+        val result = runBlocking { interactor.generateColours(coloursQuantity) }
 
         //THEN
         assertEquals(expected, result)
@@ -87,13 +88,15 @@ class ColoursInteractorTest {
     @Test
     fun `GIVEN empty words list , WHEN generate colours, THEN return empty list`() {
         //GIVEN
+        val coloursQuantity = 5
+
         val list: List<String> = emptyList()
         val expected: List<Colour> = emptyList()
 
-        coEvery { repository.getWords() } returns list
+        coEvery { repository.getWords(coloursQuantity) } returns list
 
         //WHEN
-        val result = runBlocking { interactor.generateColours() }
+        val result = runBlocking { interactor.generateColours(coloursQuantity) }
 
         //THEN
         assertEquals(expected, result)

@@ -17,8 +17,8 @@ class ColoursInteractor(
         }
     }
 
-    override suspend fun generateColours(): List<Colour> {
-        val result = repository.getWords()
+    override suspend fun generateColours(coloursQuantity : Int): List<Colour> {
+        val result = repository.getWords(coloursQuantity)
         if (result == emptyList<String>()) {
             return emptyList()
         }

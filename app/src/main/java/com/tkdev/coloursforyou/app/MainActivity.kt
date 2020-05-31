@@ -37,17 +37,19 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
 
         updateListSize.setOnClickListener {
             dialog = ColoursListSizeDialog()
-            dialog.show(supportFragmentManager, "SearchDialog")
+            dialog.show(supportFragmentManager, "ColoursListSizeDialog")
         }
 
-        fetchData.setOnClickListener { presenter.onButtonClicked() }
+        fetchData.setOnClickListener { presenter.onButtonClicked(
+            textView.text.toString().toInt()
+        ) }
 
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return when (MotionEventCompat.getActionMasked(event)) {
             MotionEvent.ACTION_DOWN -> {
-                presenter.onViewSwiped()
+                presenter.onViewSwiped(textView.text.toString().toInt())
                 true
             }
             else -> super.onTouchEvent(event)
@@ -67,8 +69,8 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onPositiveClick(listSize: Int) {
-        TODO()
+    override fun onPositiveClick(coloursQuantity: Int) {
+        presenter.onDialogPositiveUpdate(coloursQuantity)
     }
 
     override fun onNegativeClick(message: String) {

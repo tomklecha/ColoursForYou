@@ -14,18 +14,19 @@ interface ColoursContract {
         fun bind(view: View)
         fun unbind()
         fun onViewCreated()
-        fun onButtonClicked()
-        fun onViewSwiped()
+        fun onButtonClicked(coloursQuantity : Int)
+        fun onViewSwiped(coloursQuantity : Int)
+        fun onDialogPositiveUpdate(coloursQuantity: Int)
     }
 
     interface Interactor {
         fun getSavedColours(): List<Colour>
-        suspend fun generateColours(): List<Colour>
+        suspend fun generateColours(coloursQuantity : Int): List<Colour>
     }
 
     interface Repository {
         fun getSavedColours(): List<Colour>
-        suspend fun getWords(): List<String>
+        suspend fun getWords(coloursQuantity : Int): List<String>
         fun saveGeneratedColours(colours: List<Colour>)
     }
 

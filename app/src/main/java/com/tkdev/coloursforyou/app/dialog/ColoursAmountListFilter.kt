@@ -3,6 +3,9 @@ package com.tkdev.coloursforyou.app.dialog
 import android.text.InputFilter
 import android.text.Spanned
 
+// code not personally written by me
+// code based on https://www.tutorialspoint.com/how-to-define-a-min-and-max-value-for-edittext-in-android
+
 class ColoursAmountListFilter(startRange: Int, endRange: Int) : InputFilter {
     private var startRange: Int = 0
     private var endRange: Int = 0

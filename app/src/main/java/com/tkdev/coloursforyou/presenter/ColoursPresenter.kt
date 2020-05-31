@@ -40,23 +40,30 @@ class ColoursPresenter(
         }
     }
 
-    override fun onButtonClicked() {
-        generateColourList()
+    override fun onButtonClicked(coloursQuantity: Int) {
+        generateColourList(coloursQuantity)
     }
 
-    override fun onViewSwiped() {
-        generateColourList()
+    override fun onViewSwiped(coloursQuantity: Int) {
+        generateColourList(coloursQuantity)
     }
 
-    private fun CoroutineScope.generateColourList() = launch(dispatcher.IO) {
-        when (val result = interactor.generateColours()) {
-            emptyList<Colour>() -> {
-                showError("Problem with fetching data")
-                updateColoursListSize(result.size)
-            }
-            else -> {
-                updateColors(result)
-                updateColoursListSize(result.size)
+    override fun onDialogPositiveUpdate(coloursQuantity: Int) {
+        generateColourList(coloursQuantity)
+    }
+
+    private fun CoroutineScope.generateColourList(coloursQuantity: Int) = launch(dispatcher.IO) {
+        if (coloursQuantity == 0) {
+            showError("Please enter size list of colours first")
+        } else {
+            when (val result = interactor.generateColours(coloursQuantity)) {
+                emptyList<Colour>() -> {
+                    showError("Problem with fetching data")
+                }
+                else -> {
+                    updateColors(result)
+                    updateColoursListSize(result.size)
+                }
             }
         }
     }

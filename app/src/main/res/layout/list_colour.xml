@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@drawable/ic_android_head" />
 
     <TextView
         android:id="@+id/colourValue"

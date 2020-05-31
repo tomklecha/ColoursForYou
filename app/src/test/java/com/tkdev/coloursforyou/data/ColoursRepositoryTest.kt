@@ -71,12 +71,13 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN list, WHEN get words, THEN return list `() {
         //GIVEN
+        val coloursQuantity = 5
         val list: List<String> = listOf("mom", "dad", "son", "daughter", "family")
 
-        coEvery { api.fetchData() } returns list
+        coEvery { api.fetchData(coloursQuantity) } returns list
 
         //WHEN
-        val result = runBlocking { repository.getWords() }
+        val result = runBlocking { repository.getWords(coloursQuantity) }
 
         //THEN
         assertEquals(list, result)
@@ -85,12 +86,13 @@ class ColoursRepositoryTest {
     @Test
     fun `GIVEN empty list, WHEN get words, THEN empty list `() {
         //GIVEN
+        val coloursQuantity = 0
         val list: List<String> = emptyList()
 
-        coEvery { api.fetchData() } returns list
+        coEvery { api.fetchData(coloursQuantity) } returns list
 
         //WHEN
-        val result = runBlocking { repository.getWords() }
+        val result = runBlocking { repository.getWords(coloursQuantity) }
 
         //THEN
         assertEquals(list, result)

@@ -29,23 +29,42 @@ class ColoursPresenter(
 
     override fun onViewCreated() {
         when (val savedData = interactor.getSavedColours()) {
-            emptyList<Colour>() -> showError("No previously saved data")
-            else -> updateColors(savedData)
+            emptyList<Colour>() -> {
+                showError("No previously saved data")
+                updateColoursListSize(savedData.size)
+            }
+            else -> {
+                updateColors(savedData)
+                updateColoursListSize(savedData.size)
+            }
         }
     }
 
-    override fun onButtonClicked() {
-        generateColourList()
+    override fun onButtonClicked(coloursQuantity: Int) {
+        generateColourList(coloursQuantity)
     }
 
-    override fun onViewSwiped() {
-        generateColourList()
+    override fun onViewSwiped(coloursQuantity: Int) {
+        generateColourList(coloursQuantity)
     }
 
-    private fun CoroutineScope.generateColourList() = launch(dispatcher.IO) {
-        when (val result = interactor.generateColours()) {
-            emptyList<Colour>() -> showError("Problem with fetching data")
-            else -> updateColors(result)
+    override fun onDialogPositiveUpdate(coloursQuantity: Int) {
+        generateColourList(coloursQuantity)
+    }
+
+    private fun CoroutineScope.generateColourList(coloursQuantity: Int) = launch(dispatcher.IO) {
+        if (coloursQuantity == 0) {
+            showError("Please enter size list of colours first")
+        } else {
+            when (val result = interactor.generateColours(coloursQuantity)) {
+                emptyList<Colour>() -> {
+                    showError("Problem with fetching data")
+                }
+                else -> {
+                    updateColors(result)
+                    updateColoursListSize(result.size)
+                }
+            }
         }
     }
 
@@ -55,5 +74,9 @@ class ColoursPresenter(
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
         view.showError(message)
+    }
+
+    private fun CoroutineScope.updateColoursListSize(listSize: Int) = launch(dispatcher.UI) {
+        view.updateListSizeView(listSize)
     }
 }

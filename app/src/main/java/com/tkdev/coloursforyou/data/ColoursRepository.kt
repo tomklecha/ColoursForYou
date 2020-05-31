@@ -32,9 +32,9 @@ class ColoursRepository(
         }
     }
 
-    override suspend fun getWords(): List<String> {
+    override suspend fun getWords(coloursQuantity : Int): List<String> {
         return try {
-            api.fetchData().toList()
+            api.fetchData(coloursQuantity).toList()
         } catch (e: Exception) {
             emptyList()
         }

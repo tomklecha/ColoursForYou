@@ -55,6 +55,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.showError(message)
+            view.updateListSizeView(list.size)
         }
     }
 
@@ -71,35 +72,39 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
         }
     }
 
     @Test
     fun `GIVEN success fetch data, WHEN on button pressed, THEN update view with new data`() {
         //GIVEN
+        val coloursQuantity = 2
         val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
-        coEvery { interactor.generateColours() } returns list
+        coEvery { interactor.generateColours(coloursQuantity) } returns list
 
         //WHEN
-        presenter.onButtonClicked()
+        presenter.onButtonClicked(coloursQuantity)
 
         //THEN
         verify {
             view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
         }
     }
 
     @Test
     fun `GIVEN failed fetch data, WHEN on button pressed, THEN update view with new data`() {
         //GIVEN
+        val coloursQuantity = 5
         val message = "Problem with fetching data"
         val list: List<Colour> = emptyList()
 
-        coEvery { interactor.generateColours() } returns list
+        coEvery { interactor.generateColours(coloursQuantity) } returns list
 
         //WHEN
-        presenter.onButtonClicked()
+        presenter.onButtonClicked(coloursQuantity)
 
         //THEN
         verify {
@@ -110,29 +115,68 @@ class ColoursPresenterTest {
     @Test
     fun `GIVEN success fetch data, WHEN on swipe view, THEN update view with new data`() {
         //GIVEN
+        val coloursQuantity = 2
         val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
 
-        coEvery { interactor.generateColours() } returns list
+        coEvery { interactor.generateColours(coloursQuantity) } returns list
 
         //WHEN
-        presenter.onViewSwiped()
+        presenter.onViewSwiped(coloursQuantity)
 
         //THEN
         verify {
             view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
         }
     }
 
     @Test
     fun `GIVEN failed fetch data, WHEN on swipe view, THEN update view with new data`() {
         //GIVEN
+        val coloursQuantity = 5
         val message = "Problem with fetching data"
         val list: List<Colour> = emptyList()
 
-        coEvery { interactor.generateColours() } returns list
+        coEvery { interactor.generateColours(coloursQuantity) } returns list
 
         //WHEN
-        presenter.onViewSwiped()
+        presenter.onViewSwiped(coloursQuantity)
+
+        //THEN
+        verify {
+            view.showError(message)
+        }
+    }
+
+    @Test
+    fun `GIVEN success fetch data, WHEN on dialog positive update, THEN update view with new data`() {
+        //GIVEN
+        val coloursQuantity = 2
+        val list: List<Colour> = listOf(Colour("harry", "potter"), Colour("ron", "wesley"))
+
+        coEvery { interactor.generateColours(coloursQuantity) } returns list
+
+        //WHEN
+        presenter.onDialogPositiveUpdate(coloursQuantity)
+
+        //THEN
+        verify {
+            view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
+        }
+    }
+
+    @Test
+    fun `GIVEN failed fetch data, WHEN on dialog positive update, THEN update view with new data`() {
+        //GIVEN
+        val coloursQuantity = 5
+        val message = "Problem with fetching data"
+        val list: List<Colour> = emptyList()
+
+        coEvery { interactor.generateColours(coloursQuantity) } returns list
+
+        //WHEN
+        presenter.onDialogPositiveUpdate(coloursQuantity)
 
         //THEN
         verify {

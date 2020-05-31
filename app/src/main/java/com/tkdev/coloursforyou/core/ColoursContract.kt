@@ -6,7 +6,7 @@ interface ColoursContract {
 
     interface View {
         fun updateCurrentColours(colours: List<Colour>)
-        fun updateColoursListSize(size: Int)
+        fun updateListSizeView(size: Int)
         fun showError(message: String)
     }
 

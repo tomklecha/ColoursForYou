@@ -55,6 +55,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.showError(message)
+            view.updateListSizeView(list.size)
         }
     }
 
@@ -71,6 +72,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
         }
     }
 
@@ -87,6 +89,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
         }
     }
 
@@ -104,6 +107,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.showError(message)
+            view.updateListSizeView(list.size)
         }
     }
 
@@ -120,6 +124,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.updateCurrentColours(list)
+            view.updateListSizeView(list.size)
         }
     }
 
@@ -137,6 +142,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.showError(message)
+            view.updateListSizeView(list.size)
         }
     }
 }

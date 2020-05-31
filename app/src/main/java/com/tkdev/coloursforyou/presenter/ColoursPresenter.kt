@@ -29,8 +29,14 @@ class ColoursPresenter(
 
     override fun onViewCreated() {
         when (val savedData = interactor.getSavedColours()) {
-            emptyList<Colour>() -> showError("No previously saved data")
-            else -> updateColors(savedData)
+            emptyList<Colour>() -> {
+                showError("No previously saved data")
+                updateColoursListSize(savedData.size)
+            }
+            else -> {
+                updateColors(savedData)
+                updateColoursListSize(savedData.size)
+            }
         }
     }
 
@@ -44,8 +50,14 @@ class ColoursPresenter(
 
     private fun CoroutineScope.generateColourList() = launch(dispatcher.IO) {
         when (val result = interactor.generateColours()) {
-            emptyList<Colour>() -> showError("Problem with fetching data")
-            else -> updateColors(result)
+            emptyList<Colour>() -> {
+                showError("Problem with fetching data")
+                updateColoursListSize(result.size)
+            }
+            else -> {
+                updateColors(result)
+                updateColoursListSize(result.size)
+            }
         }
     }
 
@@ -55,5 +67,9 @@ class ColoursPresenter(
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
         view.showError(message)
+    }
+
+    private fun CoroutineScope.updateColoursListSize(listSize: Int) = launch(dispatcher.UI) {
+        view.updateListSizeView(listSize)
     }
 }

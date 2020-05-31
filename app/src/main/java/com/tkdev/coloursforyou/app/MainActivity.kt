@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
         coloursRecyclerView.adapter = ColoursAdapter(colours)
     }
 
-    override fun updateColoursListSize(size: Int) {
+    override fun updateListSizeView(size: Int) {
         textView.text = size.toString()
     }
 

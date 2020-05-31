@@ -13,7 +13,7 @@ class ColoursListSizeDialog : DialogFragment() {
     private lateinit var listener: ColoursListSizeDialogListener
 
     interface ColoursListSizeDialogListener {
-        fun onPositiveClick(colourQuantity: Int)
+        fun onPositiveClick(coloursQuantity: Int)
         fun onNegativeClick(message: String)
     }
 

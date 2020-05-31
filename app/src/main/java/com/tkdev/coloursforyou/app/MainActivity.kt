@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        fetchData.setOnClickListener { presenter.onButtonClicked(listSize.text.toString().toInt())
-        }
+        fetchData.setOnClickListener { presenter.onButtonClicked(listSize.text.toString().toInt()) }
 
         swipeRefreshLayout.setOnRefreshListener {
             presenter.onViewSwiped(listSize.text.toString().toInt()) }
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
                 true
             }
 
-            R.id.menu_app_bar_search -> {
+            R.id.menu_generate_list -> {
                 dialog = ColoursListSizeDialog()
                 dialog.show(supportFragmentManager, "ColoursListSizeDialog")
                 true

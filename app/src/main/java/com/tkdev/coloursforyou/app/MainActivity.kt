@@ -39,17 +39,11 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        fetchData.setOnClickListener {
-            presenter.onButtonClicked(
-                textView.text.toString().toInt()
-            )
+        fetchData.setOnClickListener { presenter.onButtonClicked(listSize.text.toString().toInt())
         }
 
         swipeRefreshLayout.setOnRefreshListener {
-            presenter.onViewSwiped(
-                textView.text.toString().toInt()
-            )
-        }
+            presenter.onViewSwiped(listSize.text.toString().toInt()) }
 
     }
 
@@ -80,7 +74,7 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
     }
 
     override fun updateListSizeView(size: Int) {
-        textView.text = size.toString()
+        listSize.text = size.toString()
     }
 
     override fun showError(message: String) {

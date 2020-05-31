@@ -127,6 +127,7 @@ class ColoursPresenterTest {
         verify {
             view.updateCurrentColours(list)
             view.updateListSizeView(list.size)
+            view.setSwipeRefresh(false)
         }
     }
 
@@ -145,6 +146,7 @@ class ColoursPresenterTest {
         //THEN
         verify {
             view.showError(message)
+            view.setSwipeRefresh(false)
         }
     }
 

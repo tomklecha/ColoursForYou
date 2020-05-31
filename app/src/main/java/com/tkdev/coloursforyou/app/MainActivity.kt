@@ -58,6 +58,10 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
         coloursRecyclerView.adapter = ColoursAdapter(colours)
     }
 
+    override fun updateColoursListSize(size: Int) {
+        textView.text = size.toString()
+    }
+
 
     override fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

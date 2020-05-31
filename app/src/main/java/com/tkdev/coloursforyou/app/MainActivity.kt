@@ -1,6 +1,8 @@
 package com.tkdev.coloursforyou.app
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.coloursforyou.R
 import com.tkdev.coloursforyou.app.dialog.ColoursListSizeDialog
+import com.tkdev.coloursforyou.app.dialog.DevDialog
 import com.tkdev.coloursforyou.core.ColoursContract
 import com.tkdev.coloursforyou.data.model.Colour
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,15 +40,32 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
             addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         }
 
-        updateListSize.setOnClickListener {
-            dialog = ColoursListSizeDialog()
-            dialog.show(supportFragmentManager, "ColoursListSizeDialog")
-        }
-
         fetchData.setOnClickListener { presenter.onButtonClicked(
             textView.text.toString().toInt()
         ) }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_about_dev -> {
+                dialog = DevDialog()
+                dialog.show(supportFragmentManager, "DevDialog")
+                true
+            }
+
+            R.id.menu_app_bar_search -> {
+                dialog = ColoursListSizeDialog()
+                dialog.show(supportFragmentManager, "ColoursListSizeDialog")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun updateCurrentColours(colours: List<Colour>) {
@@ -55,7 +75,6 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
     override fun updateListSizeView(size: Int) {
         textView.text = size.toString()
     }
-
 
     override fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MotionEventCompat
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tkdev.coloursforyou.R
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
 
         coloursRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         }
 
         updateListSize.setOnClickListener {
@@ -44,16 +46,6 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
             textView.text.toString().toInt()
         ) }
 
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return when (MotionEventCompat.getActionMasked(event)) {
-            MotionEvent.ACTION_DOWN -> {
-                presenter.onViewSwiped(textView.text.toString().toInt())
-                true
-            }
-            else -> super.onTouchEvent(event)
-        }
     }
 
     override fun updateCurrentColours(colours: List<Colour>) {

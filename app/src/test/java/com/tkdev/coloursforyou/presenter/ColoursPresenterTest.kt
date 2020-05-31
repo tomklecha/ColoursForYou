@@ -9,6 +9,7 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
@@ -43,7 +44,7 @@ class ColoursPresenterTest {
     @Test
     fun `GIVEN no saved data, WHEN on view created, THEN show message no saved data`() {
         //GIVEN
-        val message = "not this time my friend"
+        val message = "No previously saved data"
 
         val list: List<Colour> = emptyList()
         every { interactor.getSavedColours() } returns list
@@ -52,7 +53,9 @@ class ColoursPresenterTest {
         presenter.onViewCreated()
 
         //THEN
-        view.showError(message)
+        verify {
+            view.showError(message)
+        }
     }
 
     @Test
@@ -66,7 +69,9 @@ class ColoursPresenterTest {
         presenter.onViewCreated()
 
         //THEN
-        view.updateCurrentColours(list)
+        verify {
+            view.updateCurrentColours(list)
+        }
     }
 
     @Test
@@ -80,13 +85,15 @@ class ColoursPresenterTest {
         presenter.onButtonClicked()
 
         //THEN
-        view.updateCurrentColours(list)
+        verify {
+            view.updateCurrentColours(list)
+        }
     }
 
     @Test
     fun `GIVEN failed fetch data, WHEN on button pressed, THEN update view with new data`() {
         //GIVEN
-        val message = "missing something?"
+        val message = "Problem with fetching data"
         val list: List<Colour> = emptyList()
 
         coEvery { interactor.generateColours() } returns list
@@ -95,7 +102,9 @@ class ColoursPresenterTest {
         presenter.onButtonClicked()
 
         //THEN
-        view.showError(message)
+        verify {
+            view.showError(message)
+        }
     }
 
     @Test
@@ -109,13 +118,15 @@ class ColoursPresenterTest {
         presenter.onViewSwiped()
 
         //THEN
-        view.updateCurrentColours(list)
+        verify {
+            view.updateCurrentColours(list)
+        }
     }
 
     @Test
     fun `GIVEN failed fetch data, WHEN on swipe view, THEN update view with new data`() {
         //GIVEN
-        val message = "missing something?"
+        val message = "Problem with fetching data"
         val list: List<Colour> = emptyList()
 
         coEvery { interactor.generateColours() } returns list
@@ -124,6 +135,8 @@ class ColoursPresenterTest {
         presenter.onViewSwiped()
 
         //THEN
-        view.showError(message)
+        verify {
+            view.showError(message)
+        }
     }
 }

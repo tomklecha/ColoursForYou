@@ -1,15 +1,18 @@
 package com.tkdev.coloursforyou.app
 
 import android.os.Bundle
-import android.view.MotionEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MotionEventCompat
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.tkdev.coloursforyou.R
 import com.tkdev.coloursforyou.app.dialog.ColoursListSizeDialog
+import com.tkdev.coloursforyou.app.dialog.DevDialog
 import com.tkdev.coloursforyou.core.ColoursContract
 import com.tkdev.coloursforyou.data.model.Colour
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,26 +36,35 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
 
         coloursRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        updateListSize.setOnClickListener {
-            dialog = ColoursListSizeDialog()
-            dialog.show(supportFragmentManager, "ColoursListSizeDialog")
-        }
+        fetchData.setOnClickListener { presenter.onButtonClicked(listSize.text.toString().toInt()) }
 
-        fetchData.setOnClickListener { presenter.onButtonClicked(
-            textView.text.toString().toInt()
-        ) }
+        swipeRefreshLayout.setOnRefreshListener {
+            presenter.onViewSwiped(listSize.text.toString().toInt()) }
 
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return when (MotionEventCompat.getActionMasked(event)) {
-            MotionEvent.ACTION_DOWN -> {
-                presenter.onViewSwiped(textView.text.toString().toInt())
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_about_dev -> {
+                dialog = DevDialog()
+                dialog.show(supportFragmentManager, "DevDialog")
                 true
             }
-            else -> super.onTouchEvent(event)
+
+            R.id.menu_generate_list -> {
+                dialog = ColoursListSizeDialog()
+                dialog.show(supportFragmentManager, "ColoursListSizeDialog")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -61,12 +73,19 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
     }
 
     override fun updateListSizeView(size: Int) {
-        textView.text = size.toString()
+        listSize.text = size.toString()
     }
-
 
     override fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setSwipeRefresh(value: Boolean) {
+        swipeRefreshLayout.isRefreshing = value
+    }
+
+    override fun showSuccess(message: String) {
+        Snackbar.make(mainActivity, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onPositiveClick(coloursQuantity: Int) {

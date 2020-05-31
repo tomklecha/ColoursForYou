@@ -36,6 +36,7 @@ class ColoursPresenter(
             else -> {
                 updateColors(savedData)
                 updateColoursListSize(savedData.size)
+                showSuccess("Successfully loaded saved data")
             }
         }
     }
@@ -59,10 +60,13 @@ class ColoursPresenter(
             when (val result = interactor.generateColours(coloursQuantity)) {
                 emptyList<Colour>() -> {
                     showError("Problem with fetching data")
+                    updateSwipeRefresh(false)
                 }
                 else -> {
                     updateColors(result)
                     updateColoursListSize(result.size)
+                    updateSwipeRefresh(false)
+                    showSuccess("Successfully generated new colour list")
                 }
             }
         }
@@ -76,7 +80,15 @@ class ColoursPresenter(
         view.showError(message)
     }
 
+    private fun CoroutineScope.showSuccess(message: String) = launch(dispatcher.UI) {
+        view.showSuccess(message)
+    }
+
     private fun CoroutineScope.updateColoursListSize(listSize: Int) = launch(dispatcher.UI) {
         view.updateListSizeView(listSize)
+    }
+
+    private fun CoroutineScope.updateSwipeRefresh(value: Boolean) = launch(dispatcher.UI) {
+        view.setSwipeRefresh(value)
     }
 }

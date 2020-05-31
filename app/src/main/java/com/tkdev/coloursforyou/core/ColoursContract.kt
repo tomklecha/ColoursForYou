@@ -8,6 +8,8 @@ interface ColoursContract {
         fun updateCurrentColours(colours: List<Colour>)
         fun updateListSizeView(size: Int)
         fun showError(message: String)
+        fun setSwipeRefresh(value: Boolean)
+        fun showSuccess(message: String)
     }
 
     interface Presenter {

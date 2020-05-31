@@ -16,7 +16,7 @@ class ColoursViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun setColour(colour: Colour) {
         colourWord.text = colour.word
-        colourImage.setBackgroundColor(Color.parseColor(colour.colour))
+        colourImage.setColorFilter(Color.parseColor(colour.colour))
         colourValue.text = colour.colour
     }
 }

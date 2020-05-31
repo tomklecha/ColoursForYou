@@ -59,10 +59,12 @@ class ColoursPresenter(
             when (val result = interactor.generateColours(coloursQuantity)) {
                 emptyList<Colour>() -> {
                     showError("Problem with fetching data")
+                    updateSwipeRefresh(false)
                 }
                 else -> {
                     updateColors(result)
                     updateColoursListSize(result.size)
+                    updateSwipeRefresh(false)
                 }
             }
         }
@@ -78,5 +80,9 @@ class ColoursPresenter(
 
     private fun CoroutineScope.updateColoursListSize(listSize: Int) = launch(dispatcher.UI) {
         view.updateListSizeView(listSize)
+    }
+
+    private fun CoroutineScope.updateSwipeRefresh(value: Boolean) = launch(dispatcher.UI) {
+        view.setSwipeRefresh(value)
     }
 }

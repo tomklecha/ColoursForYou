@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
             textView.text.toString().toInt()
         ) }
 
+        swipeRefreshLayout.setOnRefreshListener {presenter.onViewSwiped(
+            textView.text.toString().toInt()
+        ) }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -78,6 +82,10 @@ class MainActivity : AppCompatActivity(), ColoursContract.View,
 
     override fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setSwipeRefresh(value: Boolean) {
+        swipeRefreshLayout.isRefreshing = value
     }
 
     override fun onPositiveClick(coloursQuantity: Int) {

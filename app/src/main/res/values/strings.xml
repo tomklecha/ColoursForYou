@@ -7,7 +7,7 @@
     <string name="list_size_text">Current list size:</string>
     <string name="about_dev_title">Colours for You</string>
     <string name="dev_copyright">Created by Tomasz Klecha: May 2020</string>
-    <string name="about_dev_task">\tApp developed as a tech task: \n\nTechnology used:
+    <string name="about_dev_task">\tApp developed as a tech task. \nTechnology used:
         \n\t*Programming language: Kotlin
         \n\t*API: Retrofit with Coroutines
         \n\t*Data persist: Shared preferences
